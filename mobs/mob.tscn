@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ei3hsg2iwpga"]
+
+[ext_resource type="Script" path="res://mobs/mob.gd" id="1_ovpcq"]
+[ext_resource type="Texture2D" uid="uid://bymljijferur1" path="res://icon.svg" id="1_xmgxw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x4lhq"]
+radius = 64.0
+
+[node name="Mob" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_ovpcq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.513726, 1)
+texture = ExtResource("1_xmgxw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x4lhq")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.009
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

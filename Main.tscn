@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwooaujuprk7s"]
+
+[ext_resource type="PackedScene" uid="uid://4dq51usdco22" path="res://platform.tscn" id="1_f8ess"]
+[ext_resource type="PackedScene" uid="uid://c0wkeqvc6rqx4" path="res://player/player.tscn" id="2_1asyh"]
+[ext_resource type="PackedScene" uid="uid://ei3hsg2iwpga" path="res://mobs/mob.tscn" id="3_sgjuq"]
+[ext_resource type="Texture2D" uid="uid://bymljijferur1" path="res://icon.svg" id="4_jmmw2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b7c0e"]
+texture = ExtResource("4_jmmw2")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_u1cdi"]
+sources/0 = SubResource("TileSetAtlasSource_b7c0e")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_484vh"]
+size = Vector2(141, 84)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ftu14"]
+vertices = PackedVector2Array(1313, -82, 1322, 782, -244, 759, -100, -90)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-109, -101, 1323, -92, 1333, 793, -256, 769)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(530, 311)
+scale = Vector2(8, 8)
+tile_set = SubResource("TileSet_u1cdi")
+format = 2
+
+[node name="Player" parent="." instance=ExtResource("2_1asyh")]
+position = Vector2(154, 120)
+
+[node name="Mob" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_sgjuq")]
+position = Vector2(578, 122)
+platform_wall_layers = 255
+player = NodePath("../Player")
+
+[node name="Platform" parent="." instance=ExtResource("1_f8ess")]
+position = Vector2(148, 350)
+
+[node name="Platform3" parent="." instance=ExtResource("1_f8ess")]
+position = Vector2(568, 324)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(60.5, 32)
+shape = SubResource("RectangleShape2D_484vh")
+debug_color = Color(0.964706, 0, 0.494118, 0.419608)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_ftu14")
